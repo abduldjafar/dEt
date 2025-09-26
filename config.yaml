@@ -1,0 +1,27 @@
+name: my_pipeline
+profile: local
+
+extract:
+  sources:
+    # Logical names → connectors; referenced via {{ source('<name>') }}
+    order:
+      type: filesystem
+      format: parquet
+      path: ./data/raw/orders/*.parquet
+
+transform:
+  engine: datafusion          # fixed (always DataFusion)
+  sql_paths: ["models"]       # templated SQL files
+
+load:
+  destinations:
+    - name: warehouse_parquet
+      type: filesystem
+      base_dir: ./data/warehouse
+      format: parquet
+
+    - name: analytics_pg
+      type: postgres
+      dsn: "postgresql://user:pass@localhost:5432/analytics"
+      write_mode: merge
+      schema: public

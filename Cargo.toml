@@ -1,5 +1,5 @@
 [package]
-name = "dEt"
+name = "det"
 version = "0.1.0"
 edition = "2024"
 
@@ -18,3 +18,5 @@ anyhow = "1.0.93"
 serde_yaml = "0.9"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
 tracing = "0.1.40"
+indexmap = { version = "2", features = ["serde"] }
+thiserror = "1"
